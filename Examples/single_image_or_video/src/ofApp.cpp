@@ -5,19 +5,19 @@ void ofApp::setup(){
     img.load(ofToDataPath("sample.jpg"));
     ofSetWindowShape(img.getWidth(), img.getHeight());
     segmentation.setNetworkImageSize(512,256);
- /*
-    segmentation.setup(ofToDataPath("dnn/Enet-model-best.net"),
-                       ofToDataPath("dnn/classlist.txt"));
-     segmentation.scale = 0.00392;
-*/
-    segmentation.setup(ofToDataPath("dnn/fcn8s-heavy-pascal.caffemodel"),
-                       ofToDataPath("dnn/fcn8s-heavy-pascal.prototxt"),
-                       ofToDataPath("dnn/pascal-classes.txt"));
-    segmentation.scale = 1.0;
+    
+    if (useSmallModel) {
+        segmentation.setup(ofToDataPath("dnn/Enet-model-best.net"),
+                           ofToDataPath("dnn/classlist.txt"));
+        segmentation.scale = 0.00392;
+    } else {
+        segmentation.setup(ofToDataPath("dnn/fcn8s-heavy-pascal.caffemodel"),
+                           ofToDataPath("dnn/fcn8s-heavy-pascal.prototxt"),
+                           ofToDataPath("dnn/pascal-classes.txt"));
+        segmentation.scale = 1.0;
+    }
  
     segmentation.update(img.getPixels());
-    
-   
 }
 
 //--------------------------------------------------------------
